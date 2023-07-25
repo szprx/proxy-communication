@@ -1,0 +1,16 @@
+server:
+  port: 8090
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          client:
+            RestTemplate: DEBUG
+
+proxy:
+  host: localhost
+  port: 8080
+  username: test
+  password: test
