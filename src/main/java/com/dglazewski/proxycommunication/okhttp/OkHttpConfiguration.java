@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.Authenticator;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,12 +28,17 @@ public class OkHttpConfiguration {
                     .build();
         };
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        logging.redactHeader("Authorization");
+
         return new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(configProperties.getHost(), configProperties.getPort())))
                 .proxyAuthenticator(proxyAuthenticator)
+                .addInterceptor(logging)
                 .build();
 
     }
