@@ -1,4 +1,4 @@
-package com.dglazewski.proxycommunication.controller;
+package com.dglazewski.proxycommunication.resttemplate;
 
 import com.dglazewski.proxycommunication.config.ConfigProperties;
 import com.dglazewski.proxycommunication.model.DogRequest;

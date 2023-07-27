@@ -18,11 +18,13 @@ public class RestTemplateConfiguration {
     @Bean
     public RestTemplate restTemplate(ConfigProperties configProperties){
         SimpleClientHttpRequestFactory clientHttpReq = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(configProperties.getHost(), configProperties.getPort()));
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(
+                configProperties.getHost(), configProperties.getPort()));
         clientHttpReq.setProxy(proxy);
 
         RestTemplate restTemplate = new RestTemplate(clientHttpReq);
-        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(configProperties.getUsername(), configProperties.getPassword()));
+        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(
+                configProperties.getUsername(), configProperties.getPassword()));
 
         return restTemplate;
     }
